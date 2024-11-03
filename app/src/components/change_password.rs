@@ -36,17 +36,17 @@ impl OpaqueData {
 pub struct FormModel {
     #[validate(custom(
         function = "empty_or_long",
-        message = "Password should be longer than 8 characters"
+        message = "Password should be longer than 1 characters"
     ))]
     old_password: String,
-    #[validate(length(min = 8, message = "Invalid password. Min length: 8"))]
+    #[validate(length(min = 1, message = "Invalid password. Min length: 1"))]
     password: String,
     #[validate(must_match(other = "password", message = "Passwords must match"))]
     confirm_password: String,
 }
 
 fn empty_or_long(value: &str) -> Result<(), validator::ValidationError> {
-    if value.is_empty() || value.len() >= 8 {
+    if value.is_empty() || value.len() >= 1 {
         Ok(())
     } else {
         Err(validator::ValidationError::new(""))
